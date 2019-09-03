@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}
+Home
+{% endblock title %}
+{% block content %}
+{% if user.is_authenticated %}
+Hi {{user.username}}
+<p><a href="{% url 'timelog_new' %}" class="btn btn-outline-success">Log Time</a></p>
+<p><a href="{% url 'logout' %}" class="btn btn-outline-danger">Logout</a></p>
+<table class="table table-sm table-hover table-bordered table-striped table-dark">
+    <caption>List of users</caption>
+    <thead>
+        <tr>
+            <th scope="col">user_id</th>
+            <th scope="col">date</th>
+            <th scope="col">time</th>
+            <th scope="col">Log</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for log in timelogs.all %}
+        <tr>
+            <td>{{log.user_id}}</td>
+            <td>{{log.date}}</td>
+            <td>{{log.time}}</td>
+            <td>{{log.CI_CO}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>you are not logged in</p>
+<p><a href="{% url 'login' %}" class="btn btn-outline-primary">login</a></p>
+{% endif %}
+{% endblock content %}
